@@ -1,18 +1,15 @@
 from LostCities.LostCitiesCard import LostCitiesCard
 from LostCities.LostCitiesCardSuit import LostCitiesCardSuit
+from LostCities.LostCitiesCardPile import LostCitiesCardPile
 
-class LostCitiesCardTableau:
+class LostCitiesCardTableau(LostCitiesCardPile):
 
     def __init__(self, suit: LostCitiesCardSuit):
         self.cards = []
         self.suit = suit
 
     def add_card(self, card: LostCitiesCard):
-        if not isinstance(card, LostCitiesCard):
-            raise TypeError("Cannot add non Lost Cities Card")
-
-        if card.suit != self.suit:
-            raise TypeError(f"Cannot add card with suit {card.suit} to tableau with suit {self.suit}")
+        self.validate_card(card)
 
         if self.get_top_card() is not None and card.value.value < self.get_top_card().value.value:
             raise TypeError(
@@ -40,8 +37,4 @@ class LostCitiesCardTableau:
 
         return (total * multiplier) + bonus
 
-    def get_top_card(self):
-        if len(self.cards) > 0:
-            return self.cards[-1]
-        else:
-            return None
+
