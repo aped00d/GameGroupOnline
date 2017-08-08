@@ -1,0 +1,2 @@
+class LostCitiesDiscardPile:
+    pass
